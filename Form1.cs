@@ -8,7 +8,6 @@ namespace Ultimate_clicker_game
     {
         int xp = 0;
         int xpToNextLevel = 100;
-        int level = 1;
 
         double cash = 0;
         double baseCashPerClick = 1;
@@ -47,7 +46,6 @@ namespace Ultimate_clicker_game
             {
                 xp -= xpToNextLevel;
                 levels++;
-                level++;
                 xpToNextLevel += 50; // Increase requirement for next level
             }
             UpdateUI();
@@ -75,13 +73,14 @@ namespace Ultimate_clicker_game
             MegaMulti.Text = $"💎 Mega Multi: {megaMulti} (Cost: {megaMultiCost} Prestige)";
             Ascension.Text = $"🚀 Ascension: {ascension} (Cost: {ascensionCost} Mega)";
             LevelLabel.Text = $"🎮 Levels: {levels}";
+            XPLabel.Text = $"XP: {xp}/{xpToNextLevel}";
 
             // after you set CashLabel / Multiplier / etc.
             progressBarXP.Maximum = xpToNextLevel;
             progressBarXP.Value = Math.Min(xp, xpToNextLevel);
 
             // preview the next level’s bonus (adjust text to your taste)
-            NextLevelLabel.Text = $"Next Level Boost: +{(levels + 1) * 1}% CPC base";
+            NextLevelLabel.Text = $"Next Level Boost: +{levels + 1}% CPC base";
 
 
         }
