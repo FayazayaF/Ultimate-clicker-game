@@ -41,6 +41,7 @@
             this.progressBarXP = new System.Windows.Forms.ProgressBar();
             this.NextLevelLabel = new System.Windows.Forms.Label();
             this.btnIndex = new System.Windows.Forms.Button();
+            this.XPLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // CashPerClickLabel
@@ -211,9 +212,18 @@
             this.progressBarXP.Size = new System.Drawing.Size(267, 23);
             this.progressBarXP.TabIndex = 20;
             this.progressBarXP.Click += new System.EventHandler(this.progressBarXP_Click);
-            // 
+            //
+            // XPLabel
+            //
+            this.XPLabel.AutoSize = true;
+            this.XPLabel.Location = new System.Drawing.Point(180, 10);
+            this.XPLabel.Name = "XPLabel";
+            this.XPLabel.Size = new System.Drawing.Size(24, 13);
+            this.XPLabel.TabIndex = 23;
+            this.XPLabel.Text = "XP:";
+            //
             // NextLevelLabel
-            // 
+            //
             this.NextLevelLabel.AutoSize = true;
             this.NextLevelLabel.Location = new System.Drawing.Point(244, 56);
             this.NextLevelLabel.Name = "NextLevelLabel";
@@ -234,6 +244,7 @@
             // Form1
             // 
             this.ClientSize = new System.Drawing.Size(600, 400);
+            this.Controls.Add(this.XPLabel);
             this.Controls.Add(this.btnIndex);
             this.Controls.Add(this.NextLevelLabel);
             this.Controls.Add(this.progressBarXP);
@@ -255,6 +266,7 @@
             this.Controls.Add(this.btnClick);
             this.Controls.Add(this.CashPerClickLabel);
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Ultimate Clicker Game";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
@@ -284,5 +296,6 @@
         private System.Windows.Forms.ProgressBar progressBarXP;
         private System.Windows.Forms.Label NextLevelLabel;
         private System.Windows.Forms.Button btnIndex;
+        private System.Windows.Forms.Label XPLabel;
     }
 }
