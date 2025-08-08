@@ -8,11 +8,11 @@ namespace Ultimate_clicker_game
     {
         int xp = 0;
         int xpToNextLevel = 100;
-        int level = 1;
+        int playerLevel = 1;
 
         double cash = 0;
         double baseCashPerClick = 1;
-        int multiplier = 1, rebirths = 0, ultraRebirths = 0, prestige = 0, megaMulti = 0, ascension = 0, levels = 0;
+        int multiplier = 1, rebirths = 0, ultraRebirths = 0, prestige = 0, megaMulti = 0, ascension = 0, levelPoints = 0;
 
         double multiplierCost = 25;
         int rebirthCost = 10, ultraRebirthCost = 5, prestigeCost = 3, megaMultiCost = 2, ascensionCost = 1;
@@ -40,23 +40,23 @@ namespace Ultimate_clicker_game
 
         private void btnClick_Click(object sender, EventArgs e)
         {
-            double clickValue = baseCashPerClick * GetTotalMultiplier();
+            double clickValue = baseCashPerClick * CalculateTotalMultiplier();
             cash += clickValue;
             xp += 10; // XP per click (you can scale this)
             if (xp >= xpToNextLevel)
             {
                 xp -= xpToNextLevel;
-                levels++;
-                level++;
+                levelPoints++;
+                playerLevel++;
                 xpToNextLevel += 50; // Increase requirement for next level
             }
             UpdateUI();
         }
 
-        double GetTotalMultiplier()
+        double CalculateTotalMultiplier()
         {
             return multiplier *
-                   (1 + levels * 0.01) *
+                   (1 + levelPoints * 0.01) *
                    (1 + rebirths * 0.15) *
                    (1 + ultraRebirths * 0.2) *
                    (1 + prestige * 0.3) *
@@ -67,21 +67,21 @@ namespace Ultimate_clicker_game
         void UpdateUI()
         {
             CashLabel.Text = $"💰 Cash: {cash:F2}";
-            CashPerClickLabel.Text = $"🖱️ Cash per Click: {baseCashPerClick * GetTotalMultiplier():F2}";
+            CashPerClickLabel.Text = $"🖱️ Cash per Click: {baseCashPerClick * CalculateTotalMultiplier():F2}";
             Multiplier.Text = $"🔼 Multiplier: {multiplier} (Cost: {multiplierCost:F0})";
             Rebirth.Text = $"♻️ Rebirths: {rebirths} (Cost: {rebirthCost} Multiplier)";
             UltraRebirth.Text = $"✨ Ultra Rebirths: {ultraRebirths} (Cost: {ultraRebirthCost} Rebirth)";
             Prestige.Text = $"🌟 Prestige: {prestige} (Cost: {prestigeCost} Ultra)";
             MegaMulti.Text = $"💎 Mega Multi: {megaMulti} (Cost: {megaMultiCost} Prestige)";
             Ascension.Text = $"🚀 Ascension: {ascension} (Cost: {ascensionCost} Mega)";
-            LevelLabel.Text = $"🎮 Levels: {levels}";
+            LevelLabel.Text = $"🎮 Level: {playerLevel} (Points: {levelPoints})";
 
             // after you set CashLabel / Multiplier / etc.
             progressBarXP.Maximum = xpToNextLevel;
             progressBarXP.Value = Math.Min(xp, xpToNextLevel);
 
             // preview the next level’s bonus (adjust text to your taste)
-            NextLevelLabel.Text = $"Next Level Boost: +{(levels + 1) * 1}% CPC base";
+            NextLevelLabel.Text = $"Next Level Boost: +{(levelPoints + 1) * 1}% CPC base";
 
 
         }
@@ -92,7 +92,7 @@ namespace Ultimate_clicker_game
             {
                 cash -= multiplierCost;
                 multiplier++;
-                multiplierCost = 100;
+                multiplierCost *= 2;
                 UpdateUI();
             }
         }
@@ -154,9 +154,9 @@ namespace Ultimate_clicker_game
 
         private void btnLevelBoost_Click(object sender, EventArgs e)
         {
-            if (levels >= 100)
+            if (levelPoints >= 100)
             {
-                levels -= 100;
+                levelPoints -= 100;
                 baseCashPerClick += 2;
                 UpdateUI();
             }
